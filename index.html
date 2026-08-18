@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VexarDrive - Driver Safety Dashboard</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet"/>
+</head>
+<body>
+
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="brand">VEXAR FLEET</div>
+      <div class="sub">Fleet Management</div>
+    </div>
+    <div class="nav-section">
+      <div class="nav-label">Pages</div>
+      <a href="index.html" class="nav-item active">
+        <span class="nav-icon"><i class="ri-dashboard-line"></i></span>
+        <span>Driver Safety</span>
+      </a>
+      <a href="vehicle_health.html" class="nav-item">
+        <span class="nav-icon"><i class="ri-motorbike-line"></i></span>
+        <span>Vehicle Health</span>
+      </a>
+    </div>
+    <div class="nav-section">
+      <div class="nav-label">Docs</div>
+      <a href="methodology.html" class="nav-item">
+        <span class="nav-icon"><i class="ri-file-text-line"></i></span>
+        <span>How It Works</span>
+      </a>
+      <a href="dataset.html" class="nav-item">
+        <span class="nav-icon"><i class="ri-database-2-line"></i></span>
+        <span>About the Data</span>
+      </a>
+    </div>
+  </aside>
+
+  <div class="main">
+
+    <div class="topbar">
+      <div class="topbar-title">Driver Safety</div>
+      <div class="topbar-right">
+        <div class="search-bar">
+          <span class="search-icon"><i class="ri-search-line"></i></span>
+          <input type="text" id="search-input" placeholder="Search driver name..." />
+        </div>
+        <div class="avatar">VX</div>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <!-- KPI Cards -->
+      <div class="kpi-grid">
+
+        <div class="kpi-card">
+          <div class="kpi-info">
+            <div class="kpi-label">Fleet Avg Safety</div>
+            <div class="kpi-value" id="kpi-avg-safety">-</div>
+            <div class="kpi-sub" id="kpi-avg-sub">Loading...</div>
+          </div>
+          <div class="kpi-icon green"><i class="ri-shield-check-line"></i></div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-info">
+            <div class="kpi-label">Total Drivers</div>
+            <div class="kpi-value" id="kpi-total">30</div>
+            <div class="kpi-sub" id="kpi-split-sub">Loading...</div>
+          </div>
+          <div class="kpi-icon teal"><i class="ri-group-line"></i></div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-info">
+            <div class="kpi-label">Total Risky Events</div>
+            <div class="kpi-value" id="kpi-incidents">-</div>
+            <div class="kpi-sub"><span class="warn">Harsh braking, acceleration and cornering</span></div>
+          </div>
+          <div class="kpi-icon red"><i class="ri-error-warning-line"></i></div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-info">
+            <div class="kpi-label">High Risk Drivers</div>
+            <div class="kpi-value" id="kpi-highrisk">-</div>
+            <div class="kpi-sub"><span class="danger">Need immediate attention</span></div>
+          </div>
+          <div class="kpi-icon orange"><i class="ri-alert-line"></i></div>
+        </div>
+
+      </div>
+
+      <!-- Best and Worst Driver Spotlight -->
+      <div class="spotlight-row">
+
+        <div class="spotlight-card spotlight-best" id="spotlight-best">
+          <div class="spotlight-badge">
+            <i class="ri-trophy-line"></i> Top Performer
+          </div>
+          <div class="spotlight-name" id="best-name">-</div>
+          <div class="spotlight-score" id="best-score">-</div>
+          <div class="spotlight-bar-wrap">
+            <div class="spotlight-bar-fill spotlight-bar-green" id="best-bar"></div>
+          </div>
+          <div class="spotlight-stats" id="best-stats"></div>
+        </div>
+
+        <div class="spotlight-card spotlight-worst" id="spotlight-worst">
+          <div class="spotlight-badge">
+            <i class="ri-alarm-warning-line"></i> Needs Attention
+          </div>
+          <div class="spotlight-name" id="worst-name">-</div>
+          <div class="spotlight-score" id="worst-score">-</div>
+          <div class="spotlight-bar-wrap">
+            <div class="spotlight-bar-fill spotlight-bar-red" id="worst-bar"></div>
+          </div>
+          <div class="spotlight-stats" id="worst-stats"></div>
+        </div>
+
+      </div>
+
+      <!-- Driver Groups -->
+      <div id="categories-container">
+        <div class="loading-msg">Loading driver data...</div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

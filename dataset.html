@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VexarDrive - About the Data</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet"/>
+</head>
+<body>
+
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="brand">VEXAR FLEET</div>
+      <div class="sub">Fleet Management</div>
+    </div>
+    <div class="nav-section">
+      <div class="nav-label">Pages</div>
+      <a href="index.html" class="nav-item">
+        <span class="nav-icon"><i class="ri-dashboard-line"></i></span>
+        <span>Driver Safety</span>
+      </a>
+      <a href="vehicle_health.html" class="nav-item">
+        <span class="nav-icon"><i class="ri-motorbike-line"></i></span>
+        <span>Vehicle Health</span>
+      </a>
+    </div>
+    <div class="nav-section">
+      <div class="nav-label">Docs</div>
+      <a href="methodology.html" class="nav-item">
+        <span class="nav-icon"><i class="ri-file-text-line"></i></span>
+        <span>How It Works</span>
+      </a>
+      <a href="dataset.html" class="nav-item active">
+        <span class="nav-icon"><i class="ri-database-2-line"></i></span>
+        <span>About the Data</span>
+      </a>
+    </div>
+  </aside>
+
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-title">About the Data</div>
+      <div class="topbar-right">
+        <div class="avatar">VX</div>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <!-- Overview numbers -->
+      <div class="kpi-grid" style="margin-bottom:28px">
+        <div class="kpi-card">
+          <div class="kpi-info">
+            <div class="kpi-label">Drivers</div>
+            <div class="kpi-value">30</div>
+            <div class="kpi-sub">One record per driver</div>
+          </div>
+          <div class="kpi-icon green"><i class="ri-group-line"></i></div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-info">
+            <div class="kpi-label">Vehicles</div>
+            <div class="kpi-value">30</div>
+            <div class="kpi-sub">All two-wheelers</div>
+          </div>
+          <div class="kpi-icon teal"><i class="ri-motorbike-line"></i></div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-info">
+            <div class="kpi-label">Trips</div>
+            <div class="kpi-value">450</div>
+            <div class="kpi-sub">15 per driver over one week</div>
+          </div>
+          <div class="kpi-icon orange"><i class="ri-route-line"></i></div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-info">
+            <div class="kpi-label">Sensor Readings</div>
+            <div class="kpi-value">12,987</div>
+            <div class="kpi-sub">One reading per minute per trip</div>
+          </div>
+          <div class="kpi-icon red"><i class="ri-pulse-line"></i></div>
+        </div>
+      </div>
+
+      <!-- How the tables connect -->
+      <div class="dataset-card">
+        <h2><i class="ri-git-merge-line" style="margin-right:8px;color:var(--green-mid)"></i>How the Tables Connect</h2>
+        <div class="join-diagram">
+          <div class="join-box">Sensor Readings</div>
+          <div class="join-arrow">via Trip ID</div>
+          <div class="join-box">Trips</div>
+          <div class="join-arrow">via Driver ID</div>
+          <div class="join-box">Drivers</div>
+        </div>
+        <div class="join-diagram" style="margin-top:10px">
+          <div class="join-box">Trips</div>
+          <div class="join-arrow">via Vehicle ID</div>
+          <div class="join-box">Vehicles</div>
+        </div>
+        <p style="margin-top:14px;font-size:12px;color:var(--grey-text)">
+          The sensor readings table is the most detailed one. Each row is one minute of a trip.
+          From there you can trace back to which trip it belongs to, and then to the driver
+          and vehicle involved in that trip.
+        </p>
+      </div>
+
+      <!-- Drivers table -->
+      <div class="dataset-card">
+        <h2><i class="ri-group-line" style="margin-right:8px;color:var(--green-mid)"></i>Drivers Table - 30 rows</h2>
+        <div class="schema-grid">
+          <div class="schema-item"><div class="schema-col">Driver_ID</div><div class="schema-desc">Unique code for each driver (D01 to D30)</div></div>
+          <div class="schema-item"><div class="schema-col">Driver_Name</div><div class="schema-desc">Driver's full name</div></div>
+          <div class="schema-item"><div class="schema-col">Age</div><div class="schema-desc">Age in years</div></div>
+          <div class="schema-item"><div class="schema-col">Gender</div><div class="schema-desc">Male or Female</div></div>
+          <div class="schema-item"><div class="schema-col">License_Experience_Years</div><div class="schema-desc">How many years they have held a license</div></div>
+          <div class="schema-item"><div class="schema-col">Date_Joined_Fleet</div><div class="schema-desc">When they joined VexarDrive</div></div>
+          <div class="schema-item"><div class="schema-col">Primary_Vehicle_ID</div><div class="schema-desc">The vehicle normally assigned to them</div></div>
+          <div class="schema-item"><div class="schema-col">Home_Hub</div><div class="schema-desc">The area they normally operate from</div></div>
+        </div>
+      </div>
+
+      <!-- Vehicles table -->
+      <div class="dataset-card">
+        <h2><i class="ri-motorbike-line" style="margin-right:8px;color:var(--green-mid)"></i>Vehicles Table - 30 rows</h2>
+        <div class="schema-grid">
+          <div class="schema-item"><div class="schema-col">Vehicle_ID</div><div class="schema-desc">Unique code for each vehicle (V01 to V30)</div></div>
+          <div class="schema-item"><div class="schema-col">Vehicle_Type</div><div class="schema-desc">All are two-wheelers (scooter or motorcycle)</div></div>
+          <div class="schema-item"><div class="schema-col">Make and Model</div><div class="schema-desc">Brand and model name</div></div>
+          <div class="schema-item"><div class="schema-col">Manufacture_Year</div><div class="schema-desc">Year the vehicle was made (2019 to 2025)</div></div>
+          <div class="schema-item"><div class="schema-col">Registration_Date</div><div class="schema-desc">When it was registered</div></div>
+          <div class="schema-item"><div class="schema-col">Odometer_KM_Start_of_Week</div><div class="schema-desc">Total km on the clock at the start of the week</div></div>
+          <div class="schema-item"><div class="schema-col">Last_Service_Date</div><div class="schema-desc">Date of the most recent workshop visit</div></div>
+        </div>
+      </div>
+
+      <!-- Trips table -->
+      <div class="dataset-card">
+        <h2><i class="ri-route-line" style="margin-right:8px;color:var(--green-mid)"></i>Trips Table - 450 rows</h2>
+        <div class="schema-grid">
+          <div class="schema-item"><div class="schema-col">Trip_ID</div><div class="schema-desc">Unique code for each trip (T00001 to T00450)</div></div>
+          <div class="schema-item"><div class="schema-col">Driver_ID and Vehicle_ID</div><div class="schema-desc">Links to the driver and vehicle for this trip</div></div>
+          <div class="schema-item"><div class="schema-col">Trip_Date</div><div class="schema-desc">The date the trip happened</div></div>
+          <div class="schema-item"><div class="schema-col">Start_Time and End_Time</div><div class="schema-desc">When the trip started and ended</div></div>
+          <div class="schema-item"><div class="schema-col">Duration_Min</div><div class="schema-desc">How long the trip lasted in minutes</div></div>
+          <div class="schema-item"><div class="schema-col">Distance_KM</div><div class="schema-desc">Distance covered, worked out from per-minute speed</div></div>
+          <div class="schema-item"><div class="schema-col">Avg_Speed_kmph</div><div class="schema-desc">Average speed over the whole trip</div></div>
+          <div class="schema-item"><div class="schema-col">Max_Speed_kmph</div><div class="schema-desc">Fastest speed recorded during the trip</div></div>
+          <div class="schema-item"><div class="schema-col">Start and End Coordinates</div><div class="schema-desc">GPS location where the trip began and ended</div></div>
+        </div>
+      </div>
+
+      <!-- Sensor readings table -->
+      <div class="dataset-card">
+        <h2><i class="ri-pulse-line" style="margin-right:8px;color:var(--green-mid)"></i>Sensor Readings Table - 12,987 rows</h2>
+        <p style="font-size:12px;color:var(--grey-text);margin-bottom:14px">
+          One row per minute per trip. This is where all the sensor data lives and where the scores come from.
+        </p>
+        <div class="schema-grid">
+          <div class="schema-item"><div class="schema-col">Trip_ID, Driver_ID, Vehicle_ID</div><div class="schema-desc">Links back to the other three tables</div></div>
+          <div class="schema-item"><div class="schema-col">Timestamp</div><div class="schema-desc">Exact time of this sensor reading</div></div>
+          <div class="schema-item"><div class="schema-col">Latitude and Longitude</div><div class="schema-desc">GPS position at this minute</div></div>
+          <div class="schema-item"><div class="schema-col">Speed_kmph</div><div class="schema-desc">How fast the vehicle was going</div></div>
+          <div class="schema-item"><div class="schema-col">Accel_X_g</div><div class="schema-desc">Forward/backward force in g. Negative means braking, positive means accelerating.</div></div>
+          <div class="schema-item"><div class="schema-col">Accel_Y_g</div><div class="schema-desc">Left/right force in g</div></div>
+          <div class="schema-item"><div class="schema-col">Accel_Z_g</div><div class="schema-desc">Up/down force in g. Should be around 1.0g on flat road (that is just gravity).</div></div>
+          <div class="schema-item"><div class="schema-col">Gyro_X_dps</div><div class="schema-desc">Rolling speed in degrees per second</div></div>
+          <div class="schema-item"><div class="schema-col">Gyro_Y_dps</div><div class="schema-desc">Pitching speed in degrees per second</div></div>
+          <div class="schema-item"><div class="schema-col">Gyro_Z_dps</div><div class="schema-desc">Turning speed in degrees per second. Used to detect sharp corners.</div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>

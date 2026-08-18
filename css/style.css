@@ -1,0 +1,986 @@
+/* ============================================================
+   style.css — VexarDrive Fleet Dashboard Theme
+   Matches the green sidebar + white card design from brief
+   ============================================================ */
+
+/* ── Google Font ─────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* ── CSS Variables (easy to change theme colours) ────────── */
+:root {
+  --green-dark:    #00695C;   /* sidebar background */
+  --green-mid:     #00897B;   /* active nav item, accent */
+  --green-light:   #4DB6AC;   /* hover states, badges */
+  --green-pale:    #E0F2F1;   /* subtle backgrounds */
+  --white:         #FFFFFF;
+  --grey-bg:       #F4F6F8;   /* main content background */
+  --grey-border:   #E0E0E0;
+  --grey-text:     #757575;
+  --dark-text:     #212121;
+  --card-shadow:   0 2px 8px rgba(0,0,0,0.08);
+  --card-radius:   10px;
+  --sidebar-width: 220px;
+
+  /* Status colours */
+  --safe-color:      #00897B;
+  --safe-bg:         #E0F2F1;
+  --monitor-color:   #F57C00;
+  --monitor-bg:      #FFF3E0;
+  --risk-color:      #C62828;
+  --risk-bg:         #FFEBEE;
+  --healthy-color:   #2E7D32;
+  --healthy-bg:      #E8F5E9;
+  --urgent-color:    #C62828;
+  --urgent-bg:       #FFEBEE;
+}
+
+/* ── Reset ───────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--grey-bg);
+  color: var(--dark-text);
+  display: flex;
+  min-height: 100vh;
+  font-size: 14px;
+}
+
+/* ── Sidebar ─────────────────────────────────────────────── */
+.sidebar {
+  width: var(--sidebar-width);
+  background: var(--green-dark);
+  min-height: 100vh;
+  position: fixed;
+  top: 0; left: 0;
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+}
+
+.sidebar-logo {
+  padding: 24px 20px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+}
+
+.sidebar-logo .brand {
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.5px;
+}
+
+.sidebar-logo .sub {
+  font-size: 10px;
+  color: rgba(255,255,255,0.55);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+.nav-section {
+  padding: 20px 0 4px;
+}
+
+.nav-label {
+  font-size: 9px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  padding: 0 20px 8px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  color: rgba(255,255,255,0.75);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  transition: background 0.15s, color 0.15s;
+  cursor: pointer;
+}
+
+.nav-item:hover {
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+}
+
+.nav-item.active {
+  background: var(--green-mid);
+  color: #fff;
+  border-radius: 0 6px 6px 0;
+  margin-right: 12px;
+}
+
+.nav-item .nav-icon {
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
+/* ── Main content ────────────────────────────────────────── */
+.main {
+  margin-left: var(--sidebar-width);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ── Top bar ─────────────────────────────────────────────── */
+.topbar {
+  background: var(--white);
+  padding: 14px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--grey-border);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.topbar-title {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--dark-text);
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  background: var(--grey-bg);
+  border: 1px solid var(--grey-border);
+  border-radius: 6px;
+  padding: 6px 12px;
+  gap: 8px;
+  width: 220px;
+}
+
+.search-bar input {
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 12px;
+  color: var(--dark-text);
+  width: 100%;
+  font-family: 'Inter', sans-serif;
+}
+
+.search-bar input::placeholder { color: var(--grey-text); }
+
+.search-icon { color: var(--grey-text); font-size: 13px; }
+
+.avatar {
+  width: 32px; height: 32px;
+  background: var(--green-mid);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* ── Page content wrapper ────────────────────────────────── */
+.content {
+  padding: 24px 28px;
+  flex: 1;
+}
+
+/* ── KPI Cards row ───────────────────────────────────────── */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.kpi-card {
+  background: var(--white);
+  border-radius: var(--card-radius);
+  padding: 18px 20px;
+  box-shadow: var(--card-shadow);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.kpi-info { flex: 1; }
+
+.kpi-label {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--grey-text);
+  margin-bottom: 6px;
+}
+
+.kpi-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--dark-text);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.kpi-sub {
+  font-size: 11px;
+  color: var(--grey-text);
+}
+
+.kpi-sub .highlight { color: var(--green-mid); font-weight: 600; }
+.kpi-sub .warn      { color: var(--monitor-color); font-weight: 600; }
+.kpi-sub .danger    { color: var(--risk-color); font-weight: 600; }
+
+.kpi-icon {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.kpi-icon.green  { background: var(--green-mid);     color: #fff; }
+.kpi-icon.orange { background: var(--monitor-color); color: #fff; }
+.kpi-icon.red    { background: var(--risk-color);    color: #fff; }
+.kpi-icon.teal   { background: var(--green-light);   color: #fff; }
+
+/* ── Section header ──────────────────────────────────────── */
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--dark-text);
+}
+
+.filter-bar {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.filter-btn {
+  padding: 5px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--grey-border);
+  background: var(--white);
+  color: var(--grey-text);
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: 'Inter', sans-serif;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+  background: var(--green-mid);
+  border-color: var(--green-mid);
+  color: #fff;
+}
+
+/* ── Driver Cards grid ───────────────────────────────────── */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.driver-card {
+  background: var(--white);
+  border-radius: var(--card-radius);
+  padding: 16px 18px;
+  box-shadow: var(--card-shadow);
+  border-top: 3px solid transparent;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.driver-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+}
+
+.driver-card.safe     { border-top-color: var(--safe-color); }
+.driver-card.monitor  { border-top-color: var(--monitor-color); }
+.driver-card.high-risk{ border-top-color: var(--risk-color); }
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.card-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--dark-text);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.status-badge {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.status-badge.safe      { background: var(--safe-bg);    color: var(--safe-color); }
+.status-badge.monitor   { background: var(--monitor-bg); color: var(--monitor-color); }
+.status-badge.high-risk { background: var(--risk-bg);    color: var(--risk-color); }
+.status-badge.healthy   { background: var(--healthy-bg); color: var(--healthy-color); }
+.status-badge.urgent    { background: var(--urgent-bg);  color: var(--urgent-color); }
+
+/* Score bar */
+.score-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.score-label {
+  font-size: 11px;
+  color: var(--grey-text);
+  width: 90px;
+  flex-shrink: 0;
+}
+
+.score-value {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--dark-text);
+  width: 52px;
+  flex-shrink: 0;
+}
+
+.score-bar-wrap {
+  flex: 1;
+  background: var(--grey-bg);
+  border-radius: 4px;
+  height: 6px;
+  overflow: hidden;
+}
+
+.score-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  background: var(--green-mid);
+  transition: width 0.6s ease;
+}
+
+.score-bar-fill.warn   { background: var(--monitor-color); }
+.score-bar-fill.danger { background: var(--risk-color); }
+
+/* Card stat rows */
+.card-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 12px;
+  margin-bottom: 12px;
+}
+
+.stat-item { }
+
+.stat-label {
+  font-size: 10px;
+  color: var(--grey-text);
+  margin-bottom: 1px;
+}
+
+.stat-value {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--dark-text);
+}
+
+/* Card event pills */
+.events-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding-top: 10px;
+  border-top: 1px solid var(--grey-bg);
+}
+
+.event-pill {
+  font-size: 10px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: var(--grey-bg);
+  color: var(--grey-text);
+  font-weight: 500;
+}
+
+.event-pill.has-events {
+  background: var(--risk-bg);
+  color: var(--risk-color);
+}
+
+/* ── Vehicle Cards ───────────────────────────────────────── */
+.vehicle-card {
+  background: var(--white);
+  border-radius: var(--card-radius);
+  padding: 16px 18px;
+  box-shadow: var(--card-shadow);
+  border-top: 3px solid transparent;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.vehicle-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+}
+
+.vehicle-card.healthy { border-top-color: var(--healthy-color); }
+.vehicle-card.monitor { border-top-color: var(--monitor-color); }
+.vehicle-card.urgent  { border-top-color: var(--risk-color); }
+
+.vehicle-id-badge {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--grey-text);
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+}
+
+/* ── Metric breakdown bars (vehicle detail) ─────────────── */
+.metric-bars { margin-top: 12px; }
+
+.metric-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.metric-name {
+  font-size: 10px;
+  color: var(--grey-text);
+  width: 80px;
+  flex-shrink: 0;
+}
+
+.metric-bar-wrap {
+  flex: 1;
+  background: var(--grey-bg);
+  border-radius: 3px;
+  height: 5px;
+}
+
+.metric-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  background: var(--green-mid);
+}
+
+.metric-val {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--dark-text);
+  width: 32px;
+  text-align: right;
+}
+
+/* ── Methodology page ────────────────────────────────────── */
+.methodology-section {
+  background: var(--white);
+  border-radius: var(--card-radius);
+  padding: 28px 32px;
+  box-shadow: var(--card-shadow);
+  margin-bottom: 20px;
+}
+
+.methodology-section h2 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--green-dark);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.methodology-section h2::before {
+  content: '';
+  display: inline-block;
+  width: 4px; height: 18px;
+  background: var(--green-mid);
+  border-radius: 2px;
+}
+
+.methodology-section h3 {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--dark-text);
+  margin: 16px 0 6px;
+}
+
+.methodology-section p,
+.methodology-section li {
+  font-size: 13px;
+  color: #444;
+  line-height: 1.7;
+}
+
+.methodology-section ul {
+  padding-left: 20px;
+  margin-bottom: 8px;
+}
+
+.metric-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+  font-size: 12px;
+}
+
+.metric-table th {
+  background: var(--green-pale);
+  color: var(--green-dark);
+  font-weight: 600;
+  padding: 8px 12px;
+  text-align: left;
+  border-bottom: 2px solid var(--green-mid);
+}
+
+.metric-table td {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--grey-border);
+  color: #444;
+  vertical-align: top;
+}
+
+.metric-table tr:last-child td { border-bottom: none; }
+
+/* ── Dataset page ────────────────────────────────────────── */
+.dataset-card {
+  background: var(--white);
+  border-radius: var(--card-radius);
+  padding: 20px 24px;
+  box-shadow: var(--card-shadow);
+  margin-bottom: 20px;
+}
+
+.dataset-card h2 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--dark-text);
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--green-pale);
+}
+
+.schema-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 10px;
+}
+
+.schema-item {
+  padding: 10px 14px;
+  background: var(--grey-bg);
+  border-radius: 6px;
+  border-left: 3px solid var(--green-mid);
+}
+
+.schema-col {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--dark-text);
+  margin-bottom: 2px;
+}
+
+.schema-desc {
+  font-size: 11px;
+  color: var(--grey-text);
+  line-height: 1.4;
+}
+
+.join-diagram {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  font-size: 12px;
+}
+
+.join-box {
+  background: var(--green-pale);
+  border: 1px solid var(--green-light);
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-weight: 600;
+  color: var(--green-dark);
+}
+
+.join-arrow {
+  color: var(--grey-text);
+  font-weight: 700;
+}
+
+/* ── Empty / loading state ───────────────────────────────── */
+.loading-msg {
+  text-align: center;
+  color: var(--grey-text);
+  padding: 60px 20px;
+  font-size: 13px;
+}
+
+/* ── Responsive tweaks ───────────────────────────────────── */
+@media (max-width: 1100px) {
+  .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 700px) {
+  .sidebar { width: 60px; }
+  .sidebar-logo .brand,
+  .sidebar-logo .sub,
+  .nav-label,
+  .nav-item span { display: none; }
+  .main { margin-left: 60px; }
+  .kpi-grid { grid-template-columns: 1fr; }
+  .cards-grid { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   DASHBOARD REDESIGN — Spotlight + Category Sections
+   ============================================================ */
+
+/* ── Spotlight Row (Best vs Worst) ───────────────────────── */
+
+.spotlight-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.spotlight-card {
+  border-radius: var(--card-radius);
+  padding: 24px 28px;
+  box-shadow: var(--card-shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle decorative circle in the background */
+.spotlight-card::after {
+  content: '';
+  position: absolute;
+  right: -30px;
+  top: -30px;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  opacity: 0.08;
+  background: #fff;
+}
+
+.spotlight-best  { background: linear-gradient(135deg, #00695C, #00897B); }
+.spotlight-worst { background: linear-gradient(135deg, #B71C1C, #C62828); }
+
+/* "Top Performer" / "Needs Attention" label */
+.spotlight-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.75);
+  margin-bottom: 10px;
+}
+
+.spotlight-name {
+  font-size: 22px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 4px;
+  line-height: 1.2;
+}
+
+.spotlight-score {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.80);
+  margin-bottom: 14px;
+}
+
+/* Score bar inside spotlight */
+.spotlight-bar-wrap {
+  background: rgba(255, 255, 255, 0.20);
+  border-radius: 4px;
+  height: 6px;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.spotlight-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.8s ease;
+}
+
+.spotlight-bar-green { background: rgba(255, 255, 255, 0.90); }
+.spotlight-bar-red   { background: rgba(255, 200, 200, 0.90); }
+
+/* 6-stat mini grid at the bottom of the spotlight card */
+.spotlight-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px 8px;
+}
+
+.sp-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.sp-stat-label {
+  font-size: 9px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.sp-stat-value {
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+}
+
+/* ── Category Sections (Safe / Monitor / High Risk) ──────── */
+
+.cat-section {
+  background: var(--white);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+
+/* Coloured left border per category */
+.cat-section.safe      { border-left: 4px solid var(--safe-color); }
+.cat-section.monitor   { border-left: 4px solid var(--monitor-color); }
+.cat-section.high-risk { border-left: 4px solid var(--risk-color); }
+
+/* ── Section header (click to collapse) ─────────────────── */
+
+.cat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.15s;
+}
+
+.cat-header:hover { background: var(--grey-bg); }
+
+.cat-header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Icon colour matches category */
+.cat-section.safe      .cat-header-left i { color: var(--safe-color); font-size: 16px; }
+.cat-section.monitor   .cat-header-left i { color: var(--monitor-color); font-size: 16px; }
+.cat-section.high-risk .cat-header-left i { color: var(--risk-color); font-size: 16px; }
+
+.cat-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--dark-text);
+}
+
+/* Driver count badge next to the label */
+.cat-count {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 10px;
+  border-radius: 20px;
+}
+
+.cat-section.safe      .cat-count { background: var(--safe-bg);    color: var(--safe-color); }
+.cat-section.monitor   .cat-count { background: var(--monitor-bg); color: var(--monitor-color); }
+.cat-section.high-risk .cat-count { background: var(--risk-bg);    color: var(--risk-color); }
+
+/* Chevron rotates when collapsed */
+.cat-chevron {
+  color: var(--grey-text);
+  font-size: 18px;
+  transition: transform 0.25s ease;
+}
+
+.cat-section.collapsed .cat-chevron { transform: rotate(-90deg); }
+
+/* ── Section body (the table, hidden when collapsed) ─────── */
+
+.cat-body {
+  overflow: hidden;
+  max-height: 2000px;              /* large enough to never clip */
+  transition: max-height 0.3s ease, opacity 0.25s ease;
+  opacity: 1;
+  border-top: 1px solid var(--grey-border);
+}
+
+/* Collapsed state — body shrinks to zero */
+.cat-section.collapsed .cat-body {
+  max-height: 0;
+  opacity: 0;
+  border-top: none;
+}
+
+/* ── Driver Table ─────────────────────────────────────────── */
+
+.driver-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.driver-table thead tr {
+  background: var(--grey-bg);
+}
+
+.driver-table th {
+  padding: 10px 16px;
+  text-align: left;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--grey-text);
+  white-space: nowrap;
+}
+
+.driver-table td {
+  padding: 11px 16px;
+  border-bottom: 1px solid var(--grey-bg);
+  color: var(--dark-text);
+  vertical-align: middle;
+}
+
+.driver-table tbody tr:last-child td { border-bottom: none; }
+
+.driver-table tbody tr:hover { background: #FAFAFA; }
+
+/* Driver name + experience sub-line */
+.row-name {
+  font-weight: 600;
+  font-size: 12px;
+  color: var(--dark-text);
+  margin-bottom: 2px;
+}
+
+.row-exp {
+  font-size: 10px;
+  color: var(--grey-text);
+}
+
+.row-hub {
+  font-size: 11px;
+  color: var(--grey-text);
+}
+
+/* Score cell — number + inline mini bar */
+.row-score-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.row-score-num {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--dark-text);
+  width: 36px;
+  flex-shrink: 0;
+}
+
+.row-bar-bg {
+  flex: 1;
+  background: var(--grey-bg);
+  border-radius: 3px;
+  height: 5px;
+  min-width: 60px;
+  overflow: hidden;
+}
+
+.row-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.6s ease;
+}
+
+/* Highlight cells that exceed a warning threshold */
+.cell-warn {
+  color: var(--risk-color);
+  font-weight: 700;
+}
+
+/* ── Responsive ───────────────────────────────────────────── */
+
+@media (max-width: 900px) {
+  .spotlight-row { grid-template-columns: 1fr; }
+  .spotlight-stats { grid-template-columns: repeat(3, 1fr); }
+
+  /* Hide less important columns on small screens */
+  .driver-table th:nth-child(4),
+  .driver-table td:nth-child(4),
+  .driver-table th:nth-child(5),
+  .driver-table td:nth-child(5) { display: none; }
+}
+
+/* ============================================================
+   VEHICLE HEALTH PAGE — Category section colour overrides
+   The base cat-section styles are shared with the driver page.
+   These rules just re-colour the border and badges for the
+   vehicle-specific statuses (healthy / urgent).
+   ============================================================ */
+
+/* Left border colours */
+.cat-section.healthy { border-left: 4px solid var(--healthy-color); }
+.cat-section.urgent  { border-left: 4px solid var(--urgent-color); }
+
+/* Icon colours in section headers */
+.cat-section.healthy .cat-header-left i { color: var(--healthy-color); font-size: 16px; }
+.cat-section.urgent  .cat-header-left i { color: var(--urgent-color);  font-size: 16px; }
+
+/* Count badge colours */
+.cat-section.healthy .cat-count { background: var(--healthy-bg); color: var(--healthy-color); }
+.cat-section.urgent  .cat-count { background: var(--urgent-bg);  color: var(--urgent-color); }

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VexarDrive - Vehicle Health</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet"/>
+</head>
+<body>
+
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="brand">VEXAR FLEET</div>
+      <div class="sub">Fleet Management</div>
+    </div>
+    <div class="nav-section">
+      <div class="nav-label">Pages</div>
+      <a href="index.html" class="nav-item">
+        <span class="nav-icon"><i class="ri-dashboard-line"></i></span>
+        <span>Driver Safety</span>
+      </a>
+      <a href="vehicle_health.html" class="nav-item active">
+        <span class="nav-icon"><i class="ri-motorbike-line"></i></span>
+        <span>Vehicle Health</span>
+      </a>
+    </div>
+    <div class="nav-section">
+      <div class="nav-label">Docs</div>
+      <a href="methodology.html" class="nav-item">
+        <span class="nav-icon"><i class="ri-file-text-line"></i></span>
+        <span>How It Works</span>
+      </a>
+      <a href="dataset.html" class="nav-item">
+        <span class="nav-icon"><i class="ri-database-2-line"></i></span>
+        <span>About the Data</span>
+      </a>
+    </div>
+  </aside>
+
+  <div class="main">
+
+    <div class="topbar">
+      <div class="topbar-title">Vehicle Health</div>
+      <div class="topbar-right">
+        <div class="search-bar">
+          <span class="search-icon"><i class="ri-search-line"></i></span>
+          <input type="text" id="veh-search-input" placeholder="Search by vehicle ID or make..." />
+        </div>
+        <div class="avatar">VX</div>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <!-- KPI Cards -->
+      <div class="kpi-grid">
+
+        <div class="kpi-card">
+          <div class="kpi-info">
+            <div class="kpi-label">Fleet Avg Health</div>
+            <div class="kpi-value" id="kpi-avg-health">-</div>
+            <div class="kpi-sub" id="kpi-health-sub">Loading...</div>
+          </div>
+          <div class="kpi-icon green"><i class="ri-heart-pulse-line"></i></div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-info">
+            <div class="kpi-label">Total Vehicles</div>
+            <div class="kpi-value" id="kpi-total-veh">30</div>
+            <div class="kpi-sub" id="kpi-veh-split-sub">Loading...</div>
+          </div>
+          <div class="kpi-icon teal"><i class="ri-motorbike-line"></i></div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-info">
+            <div class="kpi-label">Needs Urgent Service</div>
+            <div class="kpi-value" id="kpi-urgent-count">-</div>
+            <div class="kpi-sub"><span class="danger">Vehicles to inspect right away</span></div>
+          </div>
+          <div class="kpi-icon orange"><i class="ri-alarm-warning-line"></i></div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-info">
+            <div class="kpi-label">Worth Watching</div>
+            <div class="kpi-value" id="kpi-monitor-count">-</div>
+            <div class="kpi-sub"><span class="warn">Service recommended soon</span></div>
+          </div>
+          <div class="kpi-icon red"><i class="ri-eye-line"></i></div>
+        </div>
+
+      </div>
+
+      <!-- Worst and Best Vehicle Spotlight -->
+      <div class="spotlight-row">
+
+        <div class="spotlight-card spotlight-worst" id="veh-spotlight-worst">
+          <div class="spotlight-badge">
+            <i class="ri-tools-line"></i> Inspect Right Away
+          </div>
+          <div class="spotlight-name" id="veh-worst-name">-</div>
+          <div class="spotlight-score" id="veh-worst-score">-</div>
+          <div class="spotlight-bar-wrap">
+            <div class="spotlight-bar-fill spotlight-bar-red" id="veh-worst-bar"></div>
+          </div>
+          <div class="spotlight-stats" id="veh-worst-stats"></div>
+        </div>
+
+        <div class="spotlight-card spotlight-best" id="veh-spotlight-best">
+          <div class="spotlight-badge">
+            <i class="ri-checkbox-circle-line"></i> Best Condition
+          </div>
+          <div class="spotlight-name" id="veh-best-name">-</div>
+          <div class="spotlight-score" id="veh-best-score">-</div>
+          <div class="spotlight-bar-wrap">
+            <div class="spotlight-bar-fill spotlight-bar-green" id="veh-best-bar"></div>
+          </div>
+          <div class="spotlight-stats" id="veh-best-stats"></div>
+        </div>
+
+      </div>
+
+      <!-- Vehicle Groups -->
+      <div id="veh-categories-container">
+        <div class="loading-msg">Loading vehicle data...</div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="js/vehicle.js"></script>
+</body>
+</html>

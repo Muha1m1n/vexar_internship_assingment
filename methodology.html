@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VexarDrive - How It Works</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet"/>
+</head>
+<body>
+
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="brand">VEXAR FLEET</div>
+      <div class="sub">Fleet Management</div>
+    </div>
+    <div class="nav-section">
+      <div class="nav-label">Pages</div>
+      <a href="index.html" class="nav-item">
+        <span class="nav-icon"><i class="ri-dashboard-line"></i></span>
+        <span>Driver Safety</span>
+      </a>
+      <a href="vehicle_health.html" class="nav-item">
+        <span class="nav-icon"><i class="ri-motorbike-line"></i></span>
+        <span>Vehicle Health</span>
+      </a>
+    </div>
+    <div class="nav-section">
+      <div class="nav-label">Docs</div>
+      <a href="methodology.html" class="nav-item active">
+        <span class="nav-icon"><i class="ri-file-text-line"></i></span>
+        <span>How It Works</span>
+      </a>
+      <a href="dataset.html" class="nav-item">
+        <span class="nav-icon"><i class="ri-database-2-line"></i></span>
+        <span>About the Data</span>
+      </a>
+    </div>
+  </aside>
+
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-title">How It Works</div>
+      <div class="topbar-right">
+        <div class="avatar">VX</div>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <!-- Driver Safety Scoring -->
+      <div class="methodology-section">
+        <h2>Dashboard 1 - Driver Safety Scoring</h2>
+
+        <p>
+          Each driver gets a score from <strong>0 to 100</strong>, where
+          <strong>100 means perfectly safe</strong> and lower scores mean riskier driving.
+          The score comes entirely from the phone sensors recorded every minute during each trip,
+          so it is objective with no guesswork or self-reporting.
+        </p>
+
+        <h3>Step 1 - Detect risky events</h3>
+        <p>
+          Each row in the sensor data is one minute of driving. We check four types of risky behaviour
+          using simple cutoff values on the sensor readings:
+        </p>
+
+        <table class="metric-table">
+          <thead>
+            <tr>
+              <th>Event</th>
+              <th>Sensor Used</th>
+              <th>Cutoff</th>
+              <th>Why this cutoff?</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Harsh Braking</td>
+              <td>Accel_X_g</td>
+              <td>below -0.4 g</td>
+              <td>
+                The X-axis sensor measures forward and backward force. A reading below -0.4g means
+                the rider braked very suddenly. Normal firm braking is around -0.2g.
+                Only 2.7% of all driving minutes cross this line, so it only catches real events.
+              </td>
+            </tr>
+            <tr>
+              <td>Harsh Acceleration</td>
+              <td>Accel_X_g</td>
+              <td>above +0.4 g</td>
+              <td>
+                Same sensor, opposite direction. Above +0.4g means the rider hit the throttle
+                aggressively. Only 3.0% of minutes are flagged.
+              </td>
+            </tr>
+            <tr>
+              <td>Hard Cornering</td>
+              <td>Gyro_Z_dps</td>
+              <td>above 20 deg/sec</td>
+              <td>
+                Gyro_Z measures how fast the vehicle is turning. Normal turns are under 10 deg/sec.
+                Above 20 is a sharp, aggressive turn that risks tipping on a two-wheeler.
+                Only 3.8% of minutes are flagged.
+              </td>
+            </tr>
+            <tr>
+              <td>Speeding</td>
+              <td>Speed_kmph</td>
+              <td>above 50 km/h</td>
+              <td>
+                The Bengaluru urban road speed limit is 50 km/h. Any minute above this is a
+                traffic violation. Only 1.3% of minutes cross this, which makes sense for
+                city delivery riding with an average speed of just 24 km/h.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Step 2 - Calculate a rate per driver</h3>
+        <p>
+          We count how many minutes each driver had each event, then divide by their total
+          driving minutes. This gives a rate like "2 harsh brakes per 100 minutes".
+          Without this step, a driver who did more trips would always look worse just because
+          they drove more, which is unfair.
+        </p>
+
+        <h3>Step 3 - Turn the rate into a score (0 to 100)</h3>
+        <p>
+          We use a simple formula: the driver with the lowest rate in the fleet gets 100,
+          the driver with the highest rate gets 0, and everyone else falls in between.
+        </p>
+        <ul>
+          <li>Score = (1 - (rate - lowest rate) / (highest rate - lowest rate)) x 100</li>
+          <li>This means the scoring is relative to this fleet, not an external benchmark.</li>
+        </ul>
+
+        <h3>Step 4 - Combine into one final score</h3>
+        <p>
+          The four component scores are combined with weights that reflect how dangerous each behaviour is:
+        </p>
+
+        <table class="metric-table">
+          <thead>
+            <tr><th>Component</th><th>Weight</th><th>Why this weight?</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Harsh Braking</td>
+              <td>30%</td>
+              <td>
+                Sudden braking is the most direct cause of rear-end collisions in delivery fleets.
+                Highest weight.
+              </td>
+            </tr>
+            <tr>
+              <td>Harsh Acceleration</td>
+              <td>25%</td>
+              <td>
+                Aggressive throttle puts stress on the engine and signals impulsive riding.
+              </td>
+            </tr>
+            <tr>
+              <td>Hard Cornering</td>
+              <td>25%</td>
+              <td>
+                Sharp turns are a leading cause of two-wheeler tip-overs.
+              </td>
+            </tr>
+            <tr>
+              <td>Speeding</td>
+              <td>20%</td>
+              <td>
+                Important, but drivers who speed also tend to brake harder, so this is
+                partly captured by the other scores already. Slightly lower weight to avoid counting it twice.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Step 5 - Assign a label</h3>
+        <table class="metric-table">
+          <thead>
+            <tr><th>Score</th><th>Label</th><th>What to do</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>75 to 100</td><td style="color:var(--safe-color);font-weight:600">SAFE</td><td>No action needed. Recognise them.</td></tr>
+            <tr><td>50 to 74</td><td style="color:var(--monitor-color);font-weight:600">MONITOR</td><td>Schedule a coaching session. Watch for trends.</td></tr>
+            <tr><td>0 to 49</td><td style="color:var(--risk-color);font-weight:600">HIGH RISK</td><td>Act immediately. Retrain or reassign.</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Assumptions</h3>
+        <ul>
+          <li>The phone is mounted in a fixed position so the sensor axis stays consistent.</li>
+          <li>All trips are urban delivery routes in Bengaluru, so 50 km/h applies.</li>
+          <li>Each sensor row is exactly 1 minute of driving.</li>
+          <li>The X-axis is the forward/backward direction (standard handlebar mount).</li>
+        </ul>
+      </div>
+
+      <!-- Vehicle Health Scoring -->
+      <div class="methodology-section">
+        <h2>Dashboard 2 - Vehicle Health Scoring</h2>
+
+        <p>
+          Each vehicle gets a score from <strong>0 to 100</strong> where
+          <strong>100 means perfectly healthy</strong>.
+          We combine live sensor signals with the vehicle records to judge mechanical condition.
+        </p>
+
+        <table class="metric-table">
+          <thead>
+            <tr>
+              <th>Signal</th>
+              <th>Where it comes from</th>
+              <th>Weight</th>
+              <th>What it tells us</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Vibration Level</td>
+              <td>Spread of vertical sensor readings (Accel_Z_g)</td>
+              <td>35%</td>
+              <td>
+                On a smooth, healthy vehicle the vertical sensor should stay close to 1.0g (gravity).
+                If the reading jumps around a lot, the vehicle is vibrating more than it should.
+                High vibration means worn bearings, loose parts or an unbalanced wheel.
+                This is the strongest real-time signal of wear.
+              </td>
+            </tr>
+            <tr>
+              <td>Sensor Spike Rate</td>
+              <td>Percentage of minutes where Accel_Z_g is outside 0.7 to 1.3</td>
+              <td>30%</td>
+              <td>
+                On flat road at steady speed, the vertical reading should stay near 1.0g.
+                Values outside the 0.7 to 1.3 range are unusual jolts. Some are just potholes,
+                but a vehicle that consistently produces these readings likely has a suspension
+                or frame issue.
+              </td>
+            </tr>
+            <tr>
+              <td>Age and Mileage</td>
+              <td>Year of manufacture and odometer reading</td>
+              <td>20%</td>
+              <td>
+                Parts wear with both time and use. We combine vehicle age and odometer reading
+                into one wear number. A 2019 vehicle with 46,000 km is much more worn than
+                a 2025 vehicle with 2,700 km.
+              </td>
+            </tr>
+            <tr>
+              <td>Time Since Last Service</td>
+              <td>Last_Service_Date</td>
+              <td>15%</td>
+              <td>
+                Regular servicing catches problems early. We count the days since the last
+                service up to 6 August 2026. Vehicles not serviced in over 90 days are flagged.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Scoring</h3>
+        <p>Same approach as driver scoring. Higher signal value means worse health, so we invert it to get a score where 100 is the healthiest.</p>
+
+        <h3>Labels</h3>
+        <table class="metric-table">
+          <thead>
+            <tr><th>Score</th><th>Label</th><th>What to do</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>70 to 100</td><td style="color:var(--healthy-color);font-weight:600">HEALTHY</td><td>Keep up with the normal service schedule.</td></tr>
+            <tr><td>45 to 69</td><td style="color:var(--monitor-color);font-weight:600">MONITOR</td><td>Book a service within 2 weeks.</td></tr>
+            <tr><td>0 to 44</td><td style="color:var(--urgent-color);font-weight:600">URGENT</td><td>Take the vehicle off the road for inspection now.</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Assumptions</h3>
+        <ul>
+          <li>All vehicles operate on similar urban roads in Bengaluru.</li>
+          <li>The Z-axis sensor is vertical (pointing up through the vehicle).</li>
+          <li>The reference date for the service gap is 6 August 2026, the last day in the dataset.</li>
+          <li>The odometer reading is from the start of the week, so it slightly underestimates total wear.</li>
+        </ul>
+      </div>
+
+      <!-- What else this data could be used for -->
+      <div class="methodology-section">
+        <h2>Other Ways to Use This Data</h2>
+
+        <p>Beyond these two dashboards, the same dataset could power:</p>
+
+        <table class="metric-table">
+          <thead>
+            <tr><th>Use Case</th><th>How</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Better Route Planning</strong></td>
+              <td>
+                GPS coordinates and trip durations show which routes have higher average speeds,
+                meaning less traffic. This could feed into a smarter routing tool.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Insurance Risk Scoring</strong></td>
+              <td>
+                The driver safety score is essentially what insurance companies call a telematics score.
+                Risky drivers could be flagged for higher premiums or targeted training.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Predicting Maintenance</strong></td>
+              <td>
+                With more historical data, rising vibration trends over time could warn you
+                before a vehicle breaks down, so you can service it proactively.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Targeted Driver Training</strong></td>
+              <td>
+                The event breakdown tells you exactly what to train. A driver with lots of
+                cornering events needs different coaching from one who mostly speeds.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Hub Performance</strong></td>
+              <td>
+                Drivers belong to home hubs. Averaging scores by hub shows whether certain
+                locations have worse drivers, pointing to local training or road issues.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Night Driving Risk</strong></td>
+              <td>
+                Trip timestamps let you identify night trips (after 8pm). If night trips have
+                higher incident rates, you could adjust shift schedules to reduce risk.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>
