@@ -151,10 +151,8 @@ function buildVehCategorySection(group, vehicles) {
               <th>Odometer</th>
               <th>Health Score</th>
               <th>Last Service</th>
-              <th>Vibration</th>
-              <th>Anomaly Rate</th>
-              <th>Wear Index</th>
-              <th>Trips</th>
+              <th>Age</th>
+              <th>Trips This Week</th>
             </tr>
           </thead>
           <tbody id="veh-tbody-${group.cssClass}">
@@ -172,14 +170,14 @@ function buildVehTableRow(v) {
                   : v.health_score >= 45 ? "var(--monitor-color)"
                   : "var(--risk-color)";
 
+  // Flag last service cell red if over 90 days
   const serviceClass = v.days_since_service > 90 ? "cell-warn" : "";
-  const anomalyClass = v.anomaly_rate_pct > 20   ? "cell-warn" : "";
 
   return `
     <tr data-name="${v.vehicle_id.toLowerCase()} ${v.make.toLowerCase()} ${v.model.toLowerCase()}">
       <td>
         <div class="row-name">${v.vehicle_id} - ${v.make} ${v.model}</div>
-        <div class="row-exp">${v.vehicle_age_years} yr old vehicle</div>
+        <div class="row-exp">${v.manufacture_year} model</div>
       </td>
       <td>${v.manufacture_year}</td>
       <td>${v.odometer_km.toLocaleString()} km</td>
@@ -191,10 +189,8 @@ function buildVehTableRow(v) {
           </div>
         </div>
       </td>
-      <td class="${serviceClass}">${v.days_since_service}d ago</td>
-      <td>${v.vibration_index}</td>
-      <td class="${anomalyClass}">${v.anomaly_rate_pct}%</td>
-      <td>${v.wear_index}</td>
+      <td class="${serviceClass}">${v.days_since_service} days ago</td>
+      <td>${v.vehicle_age_years} yrs</td>
       <td>${v.trip_count}</td>
     </tr>`;
 }

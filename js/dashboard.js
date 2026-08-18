@@ -95,9 +95,9 @@ function renderCategories(drivers) {
   const container = document.getElementById("categories-container");
 
   const groups = [
-    { key: "SAFE",      cssClass: "safe",      label: "Safe Drivers",  icon: "ri-shield-check-line",  open: true  },
-    { key: "MONITOR",   cssClass: "monitor",   label: "Monitor",       icon: "ri-eye-line",            open: true  },
-    { key: "HIGH RISK", cssClass: "high-risk", label: "High Risk",     icon: "ri-alarm-warning-line",  open: true  },
+    { key: "HIGH RISK", cssClass: "high-risk", label: "High Risk Drivers", icon: "ri-alarm-warning-line", open: true  },
+    { key: "MONITOR",   cssClass: "monitor",   label: "Monitor Drivers",   icon: "ri-eye-line",            open: true  },
+    { key: "SAFE",      cssClass: "safe",      label: "Safe Drivers",      icon: "ri-shield-check-line",  open: true  },
   ];
 
   container.innerHTML = groups.map(g => {
